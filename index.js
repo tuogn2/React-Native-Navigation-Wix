@@ -1,9 +1,26 @@
-/**
- * @format
- */
+import { Navigation } from 'react-native-navigation';
+import App from './App'; // Giả sử bạn đã có App.js
 
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
+Navigation.registerComponent('com.myApp.WelcomeScreen', () => App);
+Navigation.events().registerAppLaunchedListener(() => {
 
-AppRegistry.registerComponent(appName, () => App);
+  Navigation.setDefaultOptions({
+    topBar: {
+      visible: false,  // Ẩn header (top bar) cho tất cả màn hình
+    },
+  });
+   Navigation.setRoot({
+     root: {
+       stack: {
+         children: [
+           {
+             component: {
+               name: 'com.myApp.WelcomeScreen',
+              
+             }
+           }
+         ]
+       }
+     }
+  });
+});
