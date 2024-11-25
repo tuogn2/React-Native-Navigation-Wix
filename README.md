@@ -12,10 +12,4 @@ Before starting, ensure that you have the following installed:
 - **Android Studio** (for Android development)
 - **JDK 11** or later
 
-## Installation
 
-1. **Create a new React Native project:**
-
-   ```bash
-   npx react-native init MyProject
-   cd MyProject
