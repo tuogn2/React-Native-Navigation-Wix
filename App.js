@@ -3,14 +3,20 @@ import { Navigation } from 'react-native-navigation';
 import Login from './screen/Login'
 import Intro from './screen/Intro';
 import GetStarted from './screen/GetStarted';
+import ConfirmOTP from './screen/ComfirmOTP';
+import SignUp from './screen/SignUp';
+import Home from './screen/Home';
 
 Navigation.registerComponent('Login', () => Login);
 Navigation.registerComponent('Intro', () => Intro);
 Navigation.registerComponent('GetStarted', () => GetStarted);
+Navigation.registerComponent('ConfirmOTP', () => ConfirmOTP);
+Navigation.registerComponent('SignUp', () => SignUp);
+Navigation.registerComponent('Home', () => Home);
+
 
 const App = () => {
   useEffect(() => {
-    // Đăng ký màn hình chính khi ứng dụng được khởi động
     Navigation.setRoot({
       root: {
         stack: {

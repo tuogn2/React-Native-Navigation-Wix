@@ -3,8 +3,8 @@ import { SafeAreaView, Text, StyleSheet, TouchableOpacity, View, Alert } from "r
 import PhoneInput from "../components/PhoneInput";
 import TopSection from "../components/TopSection"; // Import the new TopSection component
 // import { useNavigation } from "@react-navigation/native"; // Dùng để điều hướng trong các màn hình
-
-export default function Login() {
+import { Navigation } from "react-native-navigation";
+export default function Login(props) {
   const [phoneNumber, setPhoneNumber] = useState("0123456789");
   // const navigation = useNavigation();
 
@@ -14,18 +14,26 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(process.env.EXPO_PUBLIC_API_URL, {
+      const response = await fetch("https://api.jsonbin.io/v3/b/673ee20dacd3cb34a8ac1f92", {
         method: "GET",
         headers: {
-          "X-Master-Key": process.env.EXPO_PUBLIC_MASTER_KEY, 
+          "X-Master-Key": "$2a$10$HM7iOBAiPLJcA4WYTjF04.cnCBtHNCo7GaZCWruQ27Kl4I/x.sowu", 
         },
       });
-
       const data = await response.json();
       const user = data.record.users.find((user) => user.phone === phoneNumber);
       
       if (user) {
-        // navigation.navigate("ComfirmOTP", { phoneNumber, user });
+        Navigation.push(props.componentId, {
+          component: {
+            name: "ConfirmOTP",
+            passProps: {
+                phoneNumber: phoneNumber,
+                user: user,
+            },
+          },
+        });
+
       } else {
         Alert.alert("Error", "Phone number not found");
       }

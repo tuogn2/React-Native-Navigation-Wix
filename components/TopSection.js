@@ -1,20 +1,36 @@
 // TopSection.js
-import React from "react";
-import { View, TouchableOpacity, Image, StyleSheet } from "react-native";
-import cancel from "../assets/IMG/Cancel.png";
-import dropDown from "../assets/IMG/down.png";
-import VN from "../assets/IMG/VN.png";
-import logo from "../assets/IMG/logologin.png";
-import bg1 from "../assets/IMG/bg1.png";
-import bg2 from "../assets/IMG/bg2.png";
-// import { useNavigation } from "@react-navigation/native";
-const TopSection = () => {
+import React from 'react';
+import {View, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import cancel from '../assets/IMG/Cancel.png';
+import dropDown from '../assets/IMG/down.png';
+import VN from '../assets/IMG/VN.png';
+import logo from '../assets/IMG/logologin.png';
+import bg1 from '../assets/IMG/bg1.png';
+import bg2 from '../assets/IMG/bg2.png';
+import {Navigation} from 'react-native-navigation';
+
+const TopSection = props => {
   // const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         {/* <TouchableOpacity  onPress={()=>navigation.navigate('GetStarted')} > */}
-        <TouchableOpacity  >
+        <TouchableOpacity
+          onPress={() =>
+            Navigation.setRoot({
+              root: {
+                stack: {
+                  children: [
+                    {
+                      component: {
+                        name: 'GetStarted', // Tên màn hình bạn đã đăng ký trong Navigation
+                      },
+                    },
+                  ],
+                },
+              },
+            })
+          }>
           <Image source={cancel} style={styles.icon} resizeMode="contain" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconsRow}>
@@ -35,24 +51,24 @@ const TopSection = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
   topContainer: {
-    position: "absolute",
+    position: 'absolute',
     top: 25,
     left: 0,
     right: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 15,
     zIndex: 2,
   },
   iconsRow: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   icon: {
     width: 15,
@@ -61,10 +77,10 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    height: "100%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
   },
   logo: {
     width: 150,
@@ -72,7 +88,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   bg1: {
-    position: "absolute",
+    position: 'absolute',
     bottom: -1,
     right: -15,
     width: 150,
@@ -80,13 +96,12 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   bg2: {
-    position: "absolute",
+    position: 'absolute',
     top: -20,
     left: -10,
     width: 150,
     height: 300,
     zIndex: 0,
-
   },
 });
 

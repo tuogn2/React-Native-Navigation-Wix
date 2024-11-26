@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Navigation } from 'react-native-navigation';
+
 // Sample data for the stores
 const stores = [
   {
@@ -17,10 +19,9 @@ const stores = [
   },
 ];
 
-import { NavigationProp } from '@react-navigation/native';
+const Home = ({ componentId }) => {
 
-const Home = ({ navigation }: { navigation: NavigationProp<any> }) => {
-  const renderStoreItem = ({ item }: { item: { id: string; name: string; address: string; owner: string } }) => (
+  const renderStoreItem = ({ item }) => (
     <View style={styles.storeCard}>
       <View style={styles.storeDetails}>
         <View style={styles.textContainer}>
@@ -29,7 +30,10 @@ const Home = ({ navigation }: { navigation: NavigationProp<any> }) => {
           <Text style={styles.storeOwner}>{item.owner}</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => alert('Navigating to store details')}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => alert('Navigating to store details')}
+      >
         <Text style={styles.buttonText}>Chọn</Text>
       </TouchableOpacity>
     </View>
@@ -40,10 +44,10 @@ const Home = ({ navigation }: { navigation: NavigationProp<any> }) => {
       try {
         const token = await AsyncStorage.getItem('token');
         if (token !== null) {
-          console.log("Token retrieved:", token);
-          return token;  
+          console.log('Token retrieved:', token);
+          return token;
         }
-        return null; 
+        return null;
       } catch (error) {
         console.error('Error retrieving token:', error);
         return null;
@@ -57,10 +61,23 @@ const Home = ({ navigation }: { navigation: NavigationProp<any> }) => {
   const removeToken = async () => {
     try {
       await AsyncStorage.removeItem('token');
-    navigation.navigate('Intro');
+      Navigation.push(componentId, {
+        component: {
+          name: 'Intro', // Navigate to the Intro screen
+        },
+      });
     } catch (error) {
       console.error('Error removing token:', error);
     }
+  };
+
+  // Navigate to the Intro screen
+  const goToIntro = () => {
+    Navigation.push(componentId, {
+      component: {
+        name: 'Intro', // Replace with the actual name of your Intro screen
+      },
+    });
   };
 
   return (
@@ -75,6 +92,10 @@ const Home = ({ navigation }: { navigation: NavigationProp<any> }) => {
       {/* Nút xóa token */}
       <TouchableOpacity style={styles.removeTokenButton} onPress={removeToken}>
         <Text style={styles.removeTokenButtonText}>Xóa Token</Text>
+      </TouchableOpacity>
+      {/* Nút chuyển về trang Intro */}
+      <TouchableOpacity style={styles.goToIntroButton} onPress={goToIntro}>
+        <Text style={styles.goToIntroButtonText}>Go to Intro</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -141,13 +162,25 @@ const styles = StyleSheet.create({
   },
   removeTokenButton: {
     backgroundColor: '#FF4C4C',
-    paddingVertical: 10,
+    paddingVertical: 10, 
     paddingHorizontal: 20,
     borderRadius: 5,
     marginTop: 20,
     alignItems: 'center',
   },
   removeTokenButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  goToIntroButton: {
+    backgroundColor: '#4C9BFF',
+    paddingVertical: 10, 
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  goToIntroButtonText: {
     color: '#fff',
     fontSize: 16,
   },

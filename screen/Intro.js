@@ -1,27 +1,52 @@
 import React, { useEffect } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Navigation } from 'react-native-navigation';  
+import AsyncStorage from '@react-native-async-storage/async-storage';  // Make sure to import AsyncStorage
 import logo from '../assets/IMG/Logo.png';  
 
 export default function Intro() {
   useEffect(() => {
-    const timer = setTimeout(() => {
-      Navigation.setRoot({
-        root: {
-          stack: {
-            children: [
-              {
-                component: {
-                  name: 'GetStarted',
-                },
+    const checkToken = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        if (token) {
+          // If token exists, navigate to Home
+          Navigation.setRoot({
+            root: {
+              stack: {
+                children: [
+                  {
+                    component: {
+                      name: 'Home',  // Replace 'Home' with the name of your home screen
+                    },
+                  },
+                ],
               },
-            ],
-          },
-        },
-      });
-    }, 2000);
+            },
+          });
+        } else {
+          // If no token, navigate to GetStarted
+          Navigation.setRoot({
+            root: {
+              stack: {
+                children: [
+                  {
+                    component: {
+                      name: 'GetStarted',  // Replace 'GetStarted' with the name of your get started screen
+                    },
+                  },
+                ],
+              },
+            },
+          });
+        }
+      } catch (error) {
+        console.error('Error checking token: ', error);
+      }
+    };
 
-    return () => clearTimeout(timer);
+    // Run the check on component mount
+    checkToken();
   }, []);
 
   return (

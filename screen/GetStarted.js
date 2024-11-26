@@ -93,64 +93,84 @@ const GetStarted = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 8,
+    flex: 5, 
     justifyContent: "center",
     alignItems: "center",
+    paddingBottom: 20, 
   },
   slide: {
     width: screenWidth,
     alignItems: "center",
     justifyContent: "center",
+    paddingHorizontal: 20, 
   },
   image: {
-    width: 300,
-    height: 200,
+    width: screenWidth * 0.7, 
+    height: screenWidth * 0.45, 
     resizeMode: "contain",
-    marginBottom: 80,
+    marginBottom: 50, 
   },
   text: {
-    fontSize: 23.5,
+    fontSize: 22, // Slightly reduced for a cleaner look
     textAlign: "center",
+    color: "#333", // Dark gray for readability
+    lineHeight: 28, // Better line spacing for text
+    fontWeight: "600", // Bold for emphasis
   },
   pagination: {
     flexDirection: "row",
     justifyContent: "center",
+    marginTop: 20, // Adjust spacing below the slides
   },
   dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginHorizontal: 5,
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    marginHorizontal: 6, // Spacing between dots
+    backgroundColor: "#e0e0e0", // Neutral background for inactive dots
   },
   activeDot: {
     backgroundColor: "#1ECC78",
-  },
-  inactiveDot: {
-    backgroundColor: "#ccc",
+    width: 14, // Slightly larger for active dot
+    height: 14,
   },
   buttonContainer: {
+    flex: 1, // Adjusted to take up less space
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between", // Equal spacing between buttons
     alignItems: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 30, // Add vertical padding for better positioning
   },
   buttonLogin: {
     borderColor: "#1ECC78",
-    borderWidth: 1,
+    borderWidth: 1.5,
     paddingVertical: 15,
     paddingHorizontal: 25,
-    borderRadius: 15,
+    borderRadius: 25, // Rounded edges for modern design
     alignItems: "center",
-    width: "40%",
+    width: "45%",
     marginRight: 10,
   },
   buttonJoin: {
-    backgroundColor: "#28A745",
+    backgroundColor: "#1ECC78",
     paddingVertical: 15,
     paddingHorizontal: 25,
-    borderRadius: 15,
-    width: "40%",
+    borderRadius: 25,
+    width: "45%",
     alignItems: "center",
   },
+  buttonTextLogin: {
+    color: "#1ECC78",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  buttonTextJoin: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
 });
+
 
 export default GetStarted;

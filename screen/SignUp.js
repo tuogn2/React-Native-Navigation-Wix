@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { SafeAreaView, Text, StyleSheet, TouchableOpacity, View, TextInput } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome"; // Import thư viện icon
+import { SafeAreaView, Text, StyleSheet, TouchableOpacity, View, TextInput,Image } from "react-native";
 import PhoneInput from "../components/PhoneInput";
 import TopSection from "../components/TopSection"; // Import component TopSection
+import { Navigation } from "react-native-navigation"; // Import Wix Navigation
+import people from '../assets/IMG/People.png'
 
-export default function SignUp({ navigation }) {
+export default function SignUp(props) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [name, setName] = useState(""); // Thêm state cho tên
-  
+ 
   const handlePhone = (inputPhone) => {
     setPhoneNumber(inputPhone); // Cập nhật state phoneNumber
   };
@@ -17,9 +18,16 @@ export default function SignUp({ navigation }) {
   };
 
   const handleSignUp = () => {
-    
-    if (phoneNumber && name) { // Kiểm tra xem số điện thoại và tên đã nhập đầy đủ chưa
-      navigation.navigate("ComfirmOTP", { phoneNumber: phoneNumber, IsSignUp:true });
+    if (phoneNumber && name) { 
+      Navigation.push(props.componentId, {
+        component: {
+          name: 'ConfirmOTP', 
+          passProps: {
+            phoneNumber: phoneNumber,
+            IsSignUp: true
+          },
+        }
+      });
     } else {
       alert("Vui lòng điền đầy đủ thông tin.");
     }
@@ -39,7 +47,7 @@ export default function SignUp({ navigation }) {
         {/* Name Input Section */}
         <View style={styles.inputContainer}>
           <View style={styles.iconContainer}>
-            <Icon name="user" size={20} color="#000" />
+           <Image source={people} style={{width:24,height:24}}/>
           </View>
           <TextInput
             style={styles.input}
@@ -83,7 +91,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 10,
-    marginBottom: 20,
     paddingHorizontal: 10,
     backgroundColor:'#F1F0E8',
   },
@@ -100,9 +107,8 @@ const styles = StyleSheet.create({
   },
   buttonLogin: {
     backgroundColor: "#1ECC78",
-    padding: 15,
+    padding: 10,
     borderRadius: 8,
     alignItems: "center",
-    marginTop: 10,
   },
 });
